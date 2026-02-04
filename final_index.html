@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rose Drive Rentals</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --pink: #E23591;
+      --pink-soft: #ff6fb8;
+      --bg-dark: #0b0b10;
+      --glass: rgba(255,255,255,0.08);
+      --glass-border: rgba(255,255,255,0.15);
+      --text-soft: rgba(255,255,255,0.75);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background:
+        radial-gradient(circle at top, #451736, transparent 55%),
+        linear-gradient(to bottom, #1b0915, #000000);
+      color: white;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 420px;
+      margin: auto;
+      padding: 28px 18px 60px;
+    }
+
+    h1 {
+      font-size: 50px;
+      font-weight: 500;
+      line-height: 1;
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+      text-align: center;
+      color: var(--pink);
+    }
+
+    h1 span {
+      color: white;
+      display: block;
+      margin-top: 6px;
+      letter-spacing: 2px;
+      font-size: 45px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--text-soft);
+      line-height: 1.6;
+      margin-bottom: 34px;
+      text-align: center;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-weight: 500;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+
+    .btn-primary {
+      background: var(--pink);
+      color: white;
+      box-shadow: 0 10px 30px rgba(255,60,158,0.4);
+    }
+
+    .card {
+      margin-top: 40px;
+      padding: 24px;
+      border-radius: 24px;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.12),
+        rgba(255,255,255,0.04)
+      );
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(14px);
+    }
+
+    .card h2 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      color: white;
+      font-size: 15px;
+    }
+
+    textarea {
+      resize: none;
+      height: 110px;
+    }
+
+    .send {
+      background: var(--pink);
+      border: none;
+      border-radius: 16px;
+      padding: 16px;
+      font-size: 20px;
+      font-weight: 500;
+      color: white;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>ROSE DRIVE<span>RENTALS</span></h1>
+
+    <p class="subtitle">
+      Bold Looks. Iconic Rides. Own Every Street
+    </p>
+
+    <a class="btn btn-primary" href="https://turo.com/host/5842406" target="_blank">
+      Book Your Ride on TURO
+    </a>
+
+    <div class="card">
+      <h2>Contact Us</h2>
+
+      <!-- FORMSpree -->
+      <form
+  id="contact-form"
+  action="https://formspree.io/f/xkozpzdz"
+  method="POST"
+>
+  <input type="text" name="name" placeholder="Name" required />
+  <input type="email" name="email" placeholder="Email" required />
+  <input type="tel" name="phone" placeholder="Phone Number" />
+  <textarea name="message" placeholder="Message" required></textarea>
+
+  <input type="hidden" name="_subject" value="New Rose Drive Rentals Inquiry">
+
+  <button type="submit" class="send">Send Message</button>
+</form>
+
+<!-- Thank You Message -->
+<div
+  id="thank-you"
+  style="display:none; text-align:center; padding:20px; color:white;"
+>
+  <h3 style="margin-bottom:10px;">Thank you!</h3>
+  <p style="color: rgba(255,255,255,0.75);">
+    Your message has been sent. We’ll be in touch shortly.
+  </p>
+</div>
+
+    </div>
+
+    <footer>
+      <div>Rose Drive Rentals</div>
+    </footer>
+
+  </div>
+  <script>
+  const form = document.getElementById("contact-form");
+  const thankYou = document.getElementById("thank-you");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        form.style.display = "none";
+        thankYou.style.display = "block";
+        form.reset();
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      alert("Network error. Please try again later.");
+    }
+  });
+</script>
+</body>
+</html>
